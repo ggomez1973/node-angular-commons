@@ -1,8 +1,13 @@
 Utilitarios comunes para reutilizar.
 
-- Login/Logout/Password Recovery/Password Change con Passport
-- Session Management con Redis
-- Social login/logout con Facebook, Twitter usando Passport
+- Login/Logout/Sign In/Password Recovery/Password Change con Passport/Redis/AngularJs
+	-	Local (Verificado contra una DB local MySQL ó MongoDB)
+	-	OAuth 1.0
+	-	OAuth 2.0
+	-	Facebook
+	-	Twitter
+	-	OpenID
+- Session Management con Redis 
 - User Management (Profile/Roles/ACLs)
 - Contents Management (content, content_type, category, etc)
 

@@ -1,0 +1,26 @@
+{
+  "name": "backoffice",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ggomez1973/node-angular-commons",
+  "authors": [
+    "ggomez1973 <ggomez1973@gmail.com>"
+  ],
+  "description": "Backoffice para la configuración de usuarios y contenidos",
+  "main": "/bin/www",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs": "~1.3.0",
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.2.0"
+  }
+}

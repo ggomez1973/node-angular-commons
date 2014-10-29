@@ -1,0 +1,31 @@
+<div class="container slim">
+  <div class="modal-header">
+    <h4 class="title">Registro</h4>
+  </div>
+  <div class="modal-body">
+    <h5>{{loginErrorMessage}}</h5>
+    <p>Ingrese sus datos para <strong>crear su usuario en Cuidando Mi Auto.</strong></p>
+    <form>      
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" class="form-control" ng-model="signUpFormData.username" placeholder="Ej: Kimi2014, ElCarpo, SuperChivo, ElSchumiDeParquePatricios, etc">
+      </div>
+      <div class="form-group">
+        <label>Correo eletronico</label>
+        <input type="text" class="form-control" ng-model="signUpFormData.email" placeholder="Ingrese su email">
+      </div>      
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" class="form-control" ng-model="signUpFormData.password" placeholder="Ingrese su contraseña">
+      </div> 
+      <div class="form-group">
+        <label>Confirme su Contraseña</label>
+        <input type="password" class="form-control" ng-model="signUpFormData.password_bis" ng-enter="signUp()">
+      </div>                  
+    </form>
+  </div>
+  <div class="modal-footer">          
+      <a class="btn btn-default btn-primary" ng-click="signUp()">Iniciar</a>          
+      <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>          
+  </div>
+</div>

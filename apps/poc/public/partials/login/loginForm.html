@@ -1,0 +1,28 @@
+<div class="container slim" data-ng-controller="LoginCtrl">
+  <div class="modal-header">
+    <h4 class="title">Iniciar sesión</h4>
+  </div>
+  <div class="modal-body">
+    <h5>{{loginFormData.loginErrorMessage}}</h5>
+    <p>Ingrese sus datos para <strong>iniciar sesión en Cuidando Mi Auto.</strong></p>
+    <form>      
+      <div class="form-group">
+        <label>Correo eletronico</label>
+        <input type="text" class="form-control" ng-model="loginFormData.username" placeholder="Ingrese su email">
+      </div>      
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" class="form-control" ng-model="loginFormData.password" placeholder="Ingrese su contraseña" ng-enter="doLogin()">
+      </div>            
+      <div class="checkbox">
+        <a href="#/recuperar-password">Olvide mi contraseña</a>
+        <a href="#/login-facebook"><img src="images/facebook.png"></a>
+        <a href="#/login-twitter"><img src="images/twisper.jotapeje"></a>
+      </div>      
+    </form>
+  </div>
+  <div class="modal-footer">          
+      <a class="btn btn-default btn-primary" ng-click="doLogin()">Iniciar</a>          
+      <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>          
+  </div>
+</div>

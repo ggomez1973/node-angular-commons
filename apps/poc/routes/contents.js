@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* GET contents listing. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'POC Commons' });
+  res.send('contenidos dinamicos');
 });
 
 module.exports = router;

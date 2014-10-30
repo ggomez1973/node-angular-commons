@@ -18,15 +18,7 @@ controllers.controller('LoginCtrl', ['$scope', '$location', 'LoginService', 'Ses
 			$location.path("/");
 		});
 	};
-	$scope.loginForm = function(){
-		$location.path("/loginForm");
-	};
-	$scope.signUpForm = function(){
-		$location.path("/signUpForm");
-	};
-	$scope.cancel = function(){
-		$location.path("/");
-	};
+	
 	$scope.isUserLogged = function(){
 		console.log(SessionService.isUserLoggedIn());
 		return SessionService.isUserLoggedIn();

@@ -7,6 +7,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 
+var RedisStore = require('connect-redis')(session);
+
+
 var routes = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/users');
@@ -14,29 +17,46 @@ var contents = require('./routes/contents');
 
 var app = express();
 
+// Redis para la gestión de la sesión del usuario
+var redis = require("redis").createClient();
+redis.auth('comoseralalaguna', function() {
+    console.log('Cliente Redis conectado!');
+});
+
+var options = { 
+    host: 'localhost', 
+    port: 6379, 
+    client: redis,
+    ttl: 3600
+};
+
+var passport = require('passport');
+require('./lib/passport_local')(passport);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-    cookie: { maxAge: 3000 },
+    store: new RedisStore(options),
     secret: 'keyboard cat',
     resave: true,
     saveUninitialized: true
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* application routes */
 app.use('/', routes); // Index
-app.use('/local', login); // Estrategia local de autenticación.
+app.use('/', login); // Estrategia local de autenticación.
 app.use('/users', users); // Gestion de perfiles de usuarios.
 app.use('/contents', contents); // Gestion de contenidos dinámicos.
 

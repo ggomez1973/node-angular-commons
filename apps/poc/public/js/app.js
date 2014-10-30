@@ -3,10 +3,11 @@ var poc = window.poc = angular.module('poc', [
    'poc.Controllers',
    'poc.Routes',
    'poc.Services',
-   'poc.Directives'
+   'poc.Directives',
+   'ui.bootstrap'
    ])
    .run(['$rootScope', '$window', '$location', 'SessionService', function ($rootScope, $window, $location, ss) {
-        $rootScope.session = ss; // ????
+        //$rootScope.session = ss; // ????
         $window.app = {
             authState: function(state, user) {
                 $rootScope.$apply(function() {
@@ -22,6 +23,6 @@ var poc = window.poc = angular.module('poc', [
             }
         };
         if ($window.user !== null) {
-        	ss.authSuccess($window.user);
+          ss.authSuccess($window.user);
         }    	   
 }]);

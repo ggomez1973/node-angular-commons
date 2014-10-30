@@ -8,7 +8,7 @@ controllers.controller('SignUpCtrl', ['$scope', '$location', 'SessionService', f
 	$scope.cancel = function(){
 		$location.path("/");
 	};
-
+/*
 	SessionService.login($scope.signUpFormData, function(error, result){
 		if(error){
 			$scope.signUpFormData.error = error;
@@ -16,5 +16,5 @@ controllers.controller('SignUpCtrl', ['$scope', '$location', 'SessionService', f
 			//$scope.signUpFormData.email = result;
 		}
 	});
-
+*/
 }]);

@@ -30,6 +30,7 @@ module.exports = function(grunt) {
           'bower_components/angularjs/angular.min.js',
           'bower_components/angular-route/angular-route.min.js',
           'bower_components/bootstrap/dist/js/bootstrap.min.js',
+          'bower_components/angular-bootstrap/ui-bootstrap.min.js',
                   
           'public/js/filters/*.js',
           'public/js/filters/**/*.js',

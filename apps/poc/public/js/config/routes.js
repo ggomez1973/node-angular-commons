@@ -13,7 +13,15 @@ angular.module('poc.Routes', [])
         })
         .when('/signUpForm', {
             templateUrl: 'partials/login/signUpForm.html',
-            controller: 'SignUpCtrl'
+            controller: 'LoginCtrl'
+        })
+        .when('/passwordRecoveryForm', {
+            templateUrl: 'partials/login/passwordRecoveryForm.html',
+            controller: 'LoginCtrl'
+        })
+        .when('/passwordChangeForm', {
+            templateUrl: 'partials/login/passwordChangeForm.html',
+            controller: 'LoginCtrl'
         })
         .otherwise({redirectTo: '/'});
     }

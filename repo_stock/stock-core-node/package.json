@@ -1,0 +1,29 @@
+{
+  "name": "stock-core-node",
+  "version": "0.0.0",
+  "description": "Servicios Core para gestion de Stock ",
+  "main": "mainApp.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "German M Gomez",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.8.3",
+    "errorhandler": "^1.2.0",
+    "express": "^4.9.4",
+    "express-session": "^1.8.2",
+    "jade": "^1.7.0",
+    "lodash": "^2.4.1",
+    "method-override": "^2.2.0",
+    "morgan": "^1.3.1",
+    "multer": "^0.1.4",
+    "mysql": "^2.5.0",
+    "sequelize": "^1.7.10",
+    "serve-favicon": "^2.1.4"
+  },
+  "devDependencies": {
+    "mocha": "^1.21.4",
+    "supertest": "^0.13.0"
+  }
+}

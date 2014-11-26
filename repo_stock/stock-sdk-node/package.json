@@ -1,0 +1,25 @@
+{
+  "name": "inventoryApi",
+  "version": "0.0.0",
+  "description": "Rest API para control de inventario/stock",
+  "main": "mainApp.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "stock",
+    "inventory"
+  ],
+  "author": "German M. Gomez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.9.0",
+    "mongoose": "^3.8.16",
+    "passport": "^0.2.1",
+    "passport-oauth": "^1.0.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "mocha": "^1.21.4"
+  }
+}

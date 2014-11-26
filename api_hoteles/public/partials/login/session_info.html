@@ -1,0 +1,13 @@
+<span ng-controller="LoginCtrl"> 
+  <div ng-show="session.isLoggedIn">
+    <div class="col-md-2 col-md-offset-1 log-in">
+      <span>Bienvenido, {{ session.currentUser.username }}</span>
+      <button type="button" class="btn btn-primary navbar-btn" ng-click="doLogout()"> Cerrar Sesión </button>
+    </div>
+  </div>
+  <div ng-hide="session.isLoggedIn">
+    <div class="col-md-2 col-md-offset-1 log-in">
+      <button type="button" class="btn btn-primary navbar-btn" ng-click="getLoginForm()"> Ingresar </button>
+    </div>
+  </div>
+</span>

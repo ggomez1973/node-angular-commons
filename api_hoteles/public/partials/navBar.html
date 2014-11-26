@@ -1,0 +1,18 @@
+<div class="navbar navbar-default" ng-menu="">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li id="MenuInicio"><a href="#/"> Inicio </a></li>
+        </ul>
+        <ul class="nav navbar-nav" ng-if="session.currentUser.RoleId == 1">
+            <li id="Nuevo"><a href="#/hotelForm"> Nuevo Hotel </a></li>
+        </ul>
+        <!--
+        <ul class="nav navbar-nav">
+            <li id="Listado"><a href="#/disponibles"> Con disponibilidad </a></li>
+        </ul>
+        <ul class="nav navbar-nav">
+            <li id="VerTodos"><a href="#/todos"> Ver Todos </a></li>
+        </ul>
+        -->
+    </div>
+</div>

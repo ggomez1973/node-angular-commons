@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="poc">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Prueba de Concepto - STOCK</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <link href="assets/app.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div id="header" class="row">
+            <div class="container">
+                <div class="row">
+                    <div id="logo" class="col-md-3 col-xs-12"> 
+                        <a href="#"><img ng-src="images/fred-mercury-rage-meme.png" width="30%"></a>
+                    </div>
+                    <div class="col-md-4 col-md-offset-2">Prueba de concepto (STOCK)</div>
+                </div>
+            </div>
+        </div>
+        <ng-include src="'partials/navBar.html'"></ng-include>
+    </div>
+    <br/><br/>
+    <div class="container" ng-view></div>
+    <footer>
+        <br><br><br>
+    </footer>
+    <script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "api_hoteles",
+  "version": "0.0.0",
+  "authors": [
+    "ggomez1973 <ggomez1973@gmail.com>"
+  ],
+  "description": "API para disponibilidad en Hoteles",
+  "main": "bin/www",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

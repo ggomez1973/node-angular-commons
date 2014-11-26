@@ -1,0 +1,11 @@
+{
+  "name": "stockDemo",
+  "version": "0.0.0",
+  "description": "Webapp demo para el API de inventario/stock",
+  "main": "mainApp.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "German M. Gomez",
+  "license": "ISC"
+}

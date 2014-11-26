@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  p Bienvenido a #{title}
+  p Estos son los servicios disponibles.
+  p Via GET
+  p '/' Default index (esta página)
+  p '/items' Coleccion paginada de items (articulos)
+  p '/items/:id' Un item en particular
+  p '/items/:id/stock_levels' Movimientos de Stock para un item en particular
+  p '/items/count' Total de items
+  p '/items/search?q=query' Busqueda acotada a items
+  p Via POST 
+  p '/item' Carga un nuevo item y lo retorna (?_body=false para cancelar el retorno)
+  p Via PUT 
+  p '/items/:id' Actualización de un item existente
+  p Via DELETE 
+  p '/items/:id' Elimina un articulo existente
+
+
+
+
+  
+

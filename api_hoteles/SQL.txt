@@ -1,0 +1,8 @@
+SCRIPT de INICIO
+
+insert into Roles (name, description) values('ADMIN','Administrador general');
+insert into Roles (name, description) values('USER','Usuario comun');
+
+insert into Users (username, email, password, RoleId) values('admin','admin@gmail.com','admin', 1);
+
+insert into RolesUsers (UserId, RoleId) values (1,1);

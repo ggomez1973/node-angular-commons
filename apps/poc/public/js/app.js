@@ -23,6 +23,6 @@ var poc = window.poc = angular.module('poc', [
             }
         };
         if ($window.user !== null) {
-          ss.authSuccess($window.user);
+          ss.setAuthenticatedUser($window.user);
         }    	   
 }]);

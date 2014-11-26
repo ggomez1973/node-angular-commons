@@ -16,8 +16,8 @@ module.exports = function (passport) {
 		//	if (err) throw err;
 		//	if (user) {
 		//	
-		console.log(email);
-		return done(null, {user: 'Cacho'});
+		//console.log(email);
+		return done(null, {username: 'Cacho'});
 		//	}
 		//	return done(null, false, { message: reason });
 		//});

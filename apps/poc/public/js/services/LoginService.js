@@ -1,4 +1,4 @@
-
+/*
 services.service('LoginService', ['$http', function($http) {
     this.login = function(user, password, callback) {
         $http.post('/login', {username: user, password: password})
@@ -21,3 +21,4 @@ services.service('LoginService', ['$http', function($http) {
         return;
     };
 }]);
+*/

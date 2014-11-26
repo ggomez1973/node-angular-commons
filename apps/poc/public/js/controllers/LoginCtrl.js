@@ -1,26 +1,27 @@
 
-controllers.controller('LoginCtrl', ['$scope', '$location', 'LoginService', 'SessionService', function($scope, $location, LoginService, SessionService) {
+controllers.controller('LoginCtrl', ['$scope', '$location', 'SessionService', function($scope, $location, SessionService) {
 	$scope.loginFormData = {};
+
+	$scope.$watch( SessionService.isUserLoggedIn, function ( isLoggedIn ) {
+    	$scope.isLoggedIn = isLoggedIn;
+    	$scope.currentUser = SessionService.getAuthenticatedUser();
+  	});
 
 	$scope.doLogin = function(){
 		var data = $scope.loginFormData;
-		LoginService.login(data.username, data.password, function(error, result){
+		SessionService.login(data.username, data.password, true, function(error, result){
 			if(error){
-				$scope.loginFormData.loginErrorMessage = error;
+				console.log(error);
 			} else {
-				SessionService.authSuccess(result.user);
-				$location.path("/");	
+				$scope.currentUser = result.user;
 			}
+			$location.path("/");
 		});		
 	};
 	$scope.doLogout = function(){
-		LoginService.logout(function(error, result){
+		SessionService.logout(function(error, result){
 			$location.path("/");
 		});
 	};
-	
-	$scope.isUserLogged = function(){
-		console.log(SessionService.isUserLoggedIn());
-		return SessionService.isUserLoggedIn();
-	};
+
 }]);

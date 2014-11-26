@@ -35,14 +35,22 @@
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Una acción</a></li>
                     <li><a href="#">Otra acción</a></li>
-                    <li><a href="#">Cualquier otra cosa</a></li>
+                    <li><a href="#">Salir</a></li>
                     <li class="divider"></li>
                     <li class="dropdown-header">Configuración</li>
                     <li><a href="#passwordChangeForm">Cambio de contraseña</a></li>
                     <li><a href="#">Datos personales</a></li>
                   </ul>
                 </li>
-                <li><a href="#loginForm">Login</a></li>
+                <li ng-show="!isLoggedIn" data-ng-controller="LoginCtrl">
+                  <a href="#loginForm">Ingresar</a>
+                </li>
+                <li ng-show="isLoggedIn" data-ng-controller="LoginCtrl">
+                  <a href="#">Bienvenido {{currentUser.username}}!</a>
+                </li>
+                <li ng-show="isLoggedIn" data-ng-controller="LoginCtrl">
+                  <a ng-click="doLogout()">Salir</a>
+                </li>
               </ul>
             </div>
           </div>

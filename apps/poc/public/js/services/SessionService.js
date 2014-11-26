@@ -1,35 +1,37 @@
 
 services.service('SessionService', ['$http', function($http) {
-    var session = {
-        init: function () {
-            this.resetSession();
-        },
-        resetSession: function() {
-            this.currentUser = null;
-        },
-        logout: function() {
-            $http['delete']('/auth').success(function() {
-                this.resetSession();
-                //$rootScope.$emit('session-changed');
+    var currentUser;
+    return {
+        login : function(user, password, remember, callback) {
+            $http.post('/login', {username: user, password: password})
+            .success(function(result) {
+                currentUser = result; 
+                callback(false, result);
+            })
+            .error(function(error) {
+                currentUser = null;
+                callback(error);
             });
         },
-        authSuccess: function(userData) {
-            console.log(userData);
-            //var x = JSON.parse(JSON.stringify(userData)); 
-            this.currentUser = userData; 
-            //$rootScope.$emit('session-changed');
-        },
-        authFailed: function() {
-            this.resetSession();
-            $location.path('/');
+        logout: function(callback) {
+            $http['delete']('/auth')
+            .success(function(result) {
+                currentUser = null;
+                callback(false, result);
+            })
+            .error(function(error) {
+                callback(error);
+            });
         },
         getAuthenticatedUser: function() {
-            return this.currentUser;
+            return currentUser;
+        },
+        setAuthenticatedUser : function (userData) {
+            currentUser=userData;
         },
         isUserLoggedIn: function(){
-            return this.currentUser!=null;
+            return currentUser!=null;
         }
     };
-    session.init();
-    return session;
 }]);
+

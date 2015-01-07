@@ -13,6 +13,15 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="categoria" class="col-md-3 control-label">Categoría</label>
+            <div class="col-md-9">
+            	<select ng-model="hotelFormData.category">
+				  <option value="hotel">Hoteles</option>
+				  <option value="otros">Restaurantes, bares y afines</option>
+				</select>
+            </div>
+          </div>
+          <div class="form-group">
             <label for="email" class="col-md-3 control-label">Email</label>
             <div class="col-md-9">
               <input type="email" class="form-control" ng-model="hotelFormData.email" ng-model-options="{ updateOn: 'blur' }" placeholder="Dirección de correo eletrónico" required name="uEmail">
@@ -44,6 +53,13 @@
             <label for="phone" class="col-md-3 control-label">Teléfono</label>
             <div class="col-md-9">
               <input type="text" class="form-control" ng-model="hotelFormData.phone" placeholder="0280-4-12345">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="col-md-3 control-label">Texto libre</label>
+            <div class="col-md-9">
+              <textarea rows="4" maxlength="256" cols="50"
+            	ng-model="hotelFormData.freetext" />
             </div>
           </div>
           <div class="form-group">

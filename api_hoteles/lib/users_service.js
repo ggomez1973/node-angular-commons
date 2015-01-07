@@ -33,6 +33,8 @@ users_mediator = (function () {
 					address: b.address,
 					city: b.city,
 					phone: b.phone,
+					category: b.category,
+					freetext: b.freetext,
 					RoleId: 2 
 				};
 				datasource.createUser(nuevoUser, function(error, result){
@@ -53,6 +55,7 @@ users_mediator = (function () {
 			var q = request.query;
 			var limit = (q.limit)? q.limit : 25; // Sacar los defauls a config!!
 			var offset = (q.offset)? q.offset : 0;
+			var category = (q.category)? q.category : "hotel";
 			try {
 				limit = parseInt(limit);
 				offset = parseInt(offset);
@@ -61,7 +64,7 @@ users_mediator = (function () {
 				limit = 25;
 				offset = 0;
 			}
-			datasource.getAvailableUsers(q.fields, offset, limit, q.orderBy, q.asc, function(error, result){
+			datasource.getUsersByCategory(q.fields, offset, limit, q.orderBy, q.asc, category, function(error, result){
 				if(error){
 					return callback(error);
 				}
@@ -108,7 +111,8 @@ users_mediator = (function () {
 		 					userAddress: rows[i].address,
 		 					userCity: rows[i].city,
 		 					userPhone: rows[i].phone,
-		 					userIsAvailable: rows[i].userIsAvailable,
+		 					userCategory: rows[i].category,
+		 					userFreetext: rows[i].freetext,
 		 					itemCreationDate : rows[i].createdAt
 		 				};
 		 				users.push(user);
@@ -147,6 +151,8 @@ users_mediator = (function () {
 		
 		updateUser: function (request, callback){
 			var data = request.body;
+			console.log("update user --------------");
+			console.log(data);
 			var id = data.id;
 			delete data.id;
 			delete data.password;

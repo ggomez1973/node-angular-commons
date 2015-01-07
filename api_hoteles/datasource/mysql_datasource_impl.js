@@ -53,7 +53,8 @@ mysql_datasource = (function () {
 				return callback(null, result);
 			});
 		},
-		getUsers: function (fields, offset, limit, orderBy, asc, callback) {
+		// Incluye al administrador!
+		getAllUsers: function (fields, offset, limit, orderBy, asc, callback) {
 			var os = (offset)? offset : 0;
 			var lm = (limit)? limit : 25;
 			// {include: [ db.ItemsStockLevels ]}  <-- Join (!= expand)!
@@ -64,14 +65,27 @@ mysql_datasource = (function () {
 				return callback(null, items);
 			});
 		},
-		getAvailableUsers: function (fields, offset, limit, orderBy, asc, callback) {
+		// Todos menos los administradores
+		getUsers: function (fields, offset, limit, orderBy, asc, callback) {
 			var os = (offset)? offset : 0;
 			var lm = (limit)? limit : 25;
 			// {include: [ db.ItemsStockLevels ]}  <-- Join (!= expand)!
 			db.User.findAndCountAll({
 				offset : os,
 				limit : lm,
-				where: { RoleId:2, isAvailable : true}
+				where: { RoleId:2} 
+			}).success(function(items){
+				return callback(null, items);
+			});
+		},
+		getUsersByCategory: function (fields, offset, limit, orderBy, asc, category, callback) {
+			var os = (offset)? offset : 0;
+			var lm = (limit)? limit : 25;
+			// {include: [ db.ItemsStockLevels ]}  <-- Join (!= expand)!
+			db.User.findAndCountAll({
+				offset : os,
+				limit : lm,
+				where: { RoleId:2, category:category} 
 			}).success(function(items){
 				return callback(null, items);
 			});

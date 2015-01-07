@@ -21,6 +21,15 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="categoria" class="col-md-3 control-label">Categoría</label>
+            <div class="col-md-9">
+            	<select ng-model="hotelFormUpdateData.category">
+				  <option value="hotel">Hoteles</option>
+				  <option value="otros">Restaurantes, bares y afines</option>
+				</select>
+            </div>
+          </div>
+          <div class="form-group">
             <label for="email" class="col-md-3 control-label">Email</label>
             <div class="col-md-9">
               <input type="email" class="form-control" ng-model="hotelFormUpdateData.email" ng-model-options="{ updateOn: 'blur' }" required name="uEmail">
@@ -55,9 +64,10 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="phone" class="col-md-3 control-label">Disponible</label>
+            <label for="phone" class="col-md-3 control-label">Texto libre</label>
             <div class="col-md-9">
-              <input type="checkbox" ng-model="hotelFormUpdateData.isAvailable">
+              <textarea rows="4" maxlength="256" cols="50"
+            	ng-model="hotelFormUpdateData.freetext" />
             </div>
           </div>
           <div class="form-group">

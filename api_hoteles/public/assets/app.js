@@ -382,6 +382,28 @@ services.service('SessionService', ['$rootScope','$http', function($rootScope, $
             this.currentUser = userData;
             this.isLoggedIn = true;
             $rootScope.$emit('session-changed');
+        },
+        recoverPassword: function(user, callback){
+            $http.get('/password/'+user)
+            .success(function(result) {
+                callback(false, result);
+            })
+            .error(function(error) {
+                console.log(error);
+                callback(error);
+            });
+        },
+        changePassword: function(user, old_p, new_p, callback){
+        	var scope = this;
+            $http.post('/password/'+user, {password: old_p, new_password: new_p})
+            .success(function(result) {
+                callback(false, result);
+            })
+            .error(function(error) {
+                console.log(error);
+                this.currentUser = null;
+                callback(error);
+            });
         }
     };
     session.init();
@@ -467,6 +489,7 @@ controllers.controller('LoginCtrl', function($rootScope, $scope, $location, Sess
 			}
 		});		
 	};
+
 	$scope.doLogout = function(){
 		SessionService.logout(function(error, result){
 			$location.path("/");
@@ -475,8 +498,42 @@ controllers.controller('LoginCtrl', function($rootScope, $scope, $location, Sess
 
 	$scope.getLoginForm = function(){
 		$location.path("/loginForm");
-	}
+	};
 
+	$scope.doChangePassword = function(){
+		var data = $scope.loginFormData;
+		// Validacion
+		var id = SessionService.currentUser.username;
+		SessionService.changePassword(id, data.old_password, data.new_password1, function(error, result){
+			if(error){
+				console.log(error);
+			} else {
+				if(result.state === 'failure'){
+					$scope.loginErrorMessage = 'No se pudo cambiar su password.';
+				} else {
+					// Exito! Ver a donde redirigir bien 
+					$location.path("/");	
+				}				
+			}
+		});
+	};
+
+	$scope.doRecoverPassword = function(){
+		var data = $scope.loginFormData.username;
+		// validacion
+		SessionService.recoverPassword(data, function(error, result){
+			if(error){
+				console.log(error);
+			} else {
+				if(result.state === 'failure'){
+					$scope.loginErrorMessage = 'No se pudo recuperar su password.';
+				} else {
+					// Exito! Ver a donde redirigir bien 
+					$location.path("/");	
+				}				
+			}
+		});
+	};
 });
 ;'use strict';
 

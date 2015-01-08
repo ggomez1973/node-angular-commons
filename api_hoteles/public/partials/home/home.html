@@ -8,6 +8,9 @@
     <div class="panel panel-info" ng-show="session.isLoggedIn">
       <div class="panel-heading">
           <div class="panel-title">Sus datos</div>
+          <div style="float:right; font-size: 80%; position: relative; top:-10px">
+          <a href="#passwordChangeForm">Cambiar contraseña</a>
+        </div>
       </div>  
       <div class="panel-body" data-ng-controller="HotelCtrl">
         <div ng-show="updateMessage" id="login-alert" class="alert alert-danger col-sm-12">

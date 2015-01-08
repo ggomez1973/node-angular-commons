@@ -151,8 +151,6 @@ users_mediator = (function () {
 		
 		updateUser: function (request, callback){
 			var data = request.body;
-			console.log("update user --------------");
-			console.log(data);
 			var id = data.id;
 			delete data.id;
 			delete data.password;
@@ -160,8 +158,6 @@ users_mediator = (function () {
   			delete data.updatedAt;
   			delete data.RoleId;
   			delete data.Role; 
-			console.log(data);
-
 			datasource.updateUser(id, data, function(error, result){
 				if(error){
 					return callback(error);
@@ -177,6 +173,28 @@ users_mediator = (function () {
 		
 		getUsersCount: function (request, callback){
 			
+		},
+		recoverPassword : function(request, callback){
+			var data = request.body;
+			var query = request.query;
+			var params = request.params;
+			console.log("RecoverPassword---------");
+			console.log(data);
+			console.log(query);
+			console.log(params);
+
+			return callback(null, true);
+		},
+		changePassword : function(request, callback){
+			var data = request.body;
+			var query = request.query;
+			var params = request.params;
+			console.log("ChangePassword---------");
+			console.log(data);
+			console.log(query);
+			console.log(params);
+
+			return callback(null, true);
 		}
 	}
 }());

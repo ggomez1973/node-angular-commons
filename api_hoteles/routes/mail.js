@@ -22,18 +22,15 @@ router.get('/mails/:code', function(req, res){
 	switch(code){
 		case 'invite':
 			mailOptions.subject = 'Invitación a registrase', // Subject line
-    		mailOptions.text = 'Completa tus datos en localhost:3000', // plaintext body
     		mailOptions.html = '<b>Completa tus datos en localhost:3000. User: '+req.query.user+', Pass: '+req.query.pass+'</b>' // html body
 			break;
 		case 'recovery':
-			mailOptions.subject = 'Recueracion de contraseña', // Subject line
-    		mailOptions.text = 'Hello world ✔', // plaintext body
-    		mailOptions.html = '<b>Hello world ✔</b>' // html body
+			mailOptions.subject = 'Recuperación de contraseña', // Subject line
+    		mailOptions.html = '<b>Tu contraseña es: '+req.query.pass+'</b>' // html body
 		break;
 		case 'change':
 			mailOptions.subject = 'Cambio de contraseña', // Subject line
-    		mailOptions.text = 'Hello world ✔', // plaintext body
-    		mailOptions.html = '<b>Hello world ✔</b>' // html body
+    		mailOptions.html = '<b>Tu contraseña se cambio con exito</b>' // html body
 		break;
 	};
 	transporter.sendMail(mailOptions, function(error, info){

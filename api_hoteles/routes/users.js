@@ -55,6 +55,24 @@ router.route('/users/:id')
 			return res.json(result);
 		});
 	});
-	
+router.route('/password/:id')
+	.get(function(req,res){
+		mediator.recoverPassword(req, function(error, result){
+			if(error){
+				res.statusCode = config.INTERNAL_SERVER_ERROR;
+	            return res.send(error);
+			}
+			return res.json(result);
+		});
+	})
+	.post(function(req,res){
+		mediator.changePassword(req, function(error, result){
+			if(error){
+				res.statusCode = config.INTERNAL_SERVER_ERROR;
+	            return res.send(error);
+			}
+			return res.json(result);
+		});
+	});
 
 module.exports = router;

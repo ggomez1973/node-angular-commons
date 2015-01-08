@@ -5,6 +5,7 @@
  */
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 
 var mediator = require('../mediator/inventory_items_mediator').inventory_items_mediator;
 var config = require('../conf/properties');
@@ -13,6 +14,7 @@ var config = require('../conf/properties');
  * Multiples rutas para el mismo path
  */
 router.route('/items')
+	.all(passport.authenticate('bearer', { session: false }))
 	.get(function(req, res) {
 		mediator.getItems(req, function(error, result){
 			if(error){

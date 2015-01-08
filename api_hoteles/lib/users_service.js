@@ -175,26 +175,28 @@ users_mediator = (function () {
 			
 		},
 		recoverPassword : function(request, callback){
-			var data = request.body;
-			var query = request.query;
-			var params = request.params;
-			console.log("RecoverPassword---------");
-			console.log(data);
-			console.log(query);
-			console.log(params);
-
-			return callback(null, true);
+			datasource.getUserbyEmail(request.params.id, function(error, result){
+				if(error){
+					return callback(error);
+				}
+				return callback(null, (result)? result.password: null);
+			});
 		},
 		changePassword : function(request, callback){
-			var data = request.body;
-			var query = request.query;
-			var params = request.params;
-			console.log("ChangePassword---------");
-			console.log(data);
-			console.log(query);
-			console.log(params);
-
-			return callback(null, true);
+			var values = {password: request.body.new_password};
+			var options = {
+				where : {username:request.params.id, password:request.body.password},
+				limit : 1
+			};
+			datasource.updateUserByCriteria(values, options, function(error, result){
+				if(error){
+					return callback(error);
+				}
+				if(result[0] === 0){
+					return callback(true); // No encontro nada que actualizar
+				}
+				return callback(null, result);
+			});
 		}
 	}
 }());

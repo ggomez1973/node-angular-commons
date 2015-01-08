@@ -1,5 +1,5 @@
 
-controllers.controller('LoginCtrl', function($rootScope, $scope, $location, SessionService) {
+controllers.controller('LoginCtrl', function($rootScope, $scope, $location, SessionService, MailService) {
 	$scope.loginFormData = {};
 	$scope.loginErrorMessage = null;
 
@@ -32,33 +32,45 @@ controllers.controller('LoginCtrl', function($rootScope, $scope, $location, Sess
 	$scope.doChangePassword = function(){
 		var data = $scope.loginFormData;
 		// Validacion
-		var id = SessionService.currentUser.username;
-		SessionService.changePassword(id, data.old_password, data.new_password1, function(error, result){
-			if(error){
-				console.log(error);
-			} else {
-				if(result.state === 'failure'){
+		if(data.old_password && (data.new_password1 === data.new_password2)){
+			var id = SessionService.currentUser.username;
+			SessionService.changePassword(id, data.old_password, data.new_password1, function(error, result){
+				if(error){
 					$scope.loginErrorMessage = 'No se pudo cambiar su password.';
 				} else {
-					// Exito! Ver a donde redirigir bien 
-					$location.path("/");	
-				}				
-			}
-		});
+					if(result.state === 'failure'){
+						$scope.loginErrorMessage = 'No se pudo cambiar su password.';
+					} else {
+						// Exito! Ver a donde redirigir bien 
+						$location.path("/");	
+					}				
+				}
+			});
+		} else {
+			$scope.loginErrorMessage = 'Verifique los datos ingresados.';
+		}		
 	};
 
 	$scope.doRecoverPassword = function(){
-		var data = $scope.loginFormData.username;
+		var email = $scope.loginFormData.username;
 		// validacion
-		SessionService.recoverPassword(data, function(error, result){
+		SessionService.recoverPassword(email, function(error, result){
 			if(error){
 				console.log(error);
 			} else {
 				if(result.state === 'failure'){
 					$scope.loginErrorMessage = 'No se pudo recuperar su password.';
 				} else {
-					// Exito! Ver a donde redirigir bien 
-					$location.path("/");	
+					var data = {
+						to: email,
+						pass: result
+					};
+					MailService.sendPasswordRecoveryMail(data, function(error, result){
+						if(error){
+							console.log(error);
+						}
+						$location.path("/");
+					});		
 				}				
 			}
 		});

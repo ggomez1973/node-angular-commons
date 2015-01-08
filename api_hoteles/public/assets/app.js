@@ -310,7 +310,6 @@ services.service('HotelService', ['$http', function($http) {
     var service =  {
         sendNewHotelEmail : function(data, callback) {
             var query = 'email='+data.to+'&user='+data.user+'&pass='+data.pass;
-            console.log(query);
             $http.get('/mails/invite?'+ query)
             .success(function(result) {
                 callback(false, result);
@@ -319,9 +318,9 @@ services.service('HotelService', ['$http', function($http) {
                 callback(error);
             });
         }, 
-        // @TODO - Implementar bien!
-        sendPasswordRecoveryMail : function(email, callback){
-            $http.get('/mails/recovery?'+ email)
+        sendPasswordRecoveryMail : function(data, callback){
+        	var query = 'email='+data.to+'&pass='+data.pass;
+            $http.get('/mails/recovery?'+ query)
             .success(function(result) {
                 callback(false, result);
             }) 
@@ -329,7 +328,9 @@ services.service('HotelService', ['$http', function($http) {
                 callback(error);
             });
         },
-        sendChangedPasswordMail : function(email, callback){
+        // @TODO - Implementar bien!
+        /* Hace falta?
+        sendChangedPasswordMail : function(data, callback){
             $http.get('/mails/change?'+ email)
             .success(function(result) {
                 callback(false, result);
@@ -337,7 +338,7 @@ services.service('HotelService', ['$http', function($http) {
             .error(function(error) {
                 callback(error);
             });        
-        }   
+        } */
     };    
     return service;
 }]);
@@ -389,7 +390,6 @@ services.service('SessionService', ['$rootScope','$http', function($rootScope, $
                 callback(false, result);
             })
             .error(function(error) {
-                console.log(error);
                 callback(error);
             });
         },
@@ -397,11 +397,10 @@ services.service('SessionService', ['$rootScope','$http', function($rootScope, $
         	var scope = this;
             $http.post('/password/'+user, {password: old_p, new_password: new_p})
             .success(function(result) {
+            	scope.logout();
                 callback(false, result);
             })
             .error(function(error) {
-                console.log(error);
-                this.currentUser = null;
                 callback(error);
             });
         }
@@ -456,8 +455,6 @@ function($window, $location, $scope, MailService, HotelService, SessionService) 
 
 	$scope.updateHotel = function(){
 		var data = $scope.hotelFormUpdateData;
-		console.log("updateando ----------------");
-		console.log(data);
 		// Validation!! @TODO
 		HotelService.updateHotel(data, function(error, result){
 			if(error){
@@ -470,7 +467,7 @@ function($window, $location, $scope, MailService, HotelService, SessionService) 
 	}    		
 }]);
 ;
-controllers.controller('LoginCtrl', function($rootScope, $scope, $location, SessionService) {
+controllers.controller('LoginCtrl', function($rootScope, $scope, $location, SessionService, MailService) {
 	$scope.loginFormData = {};
 	$scope.loginErrorMessage = null;
 
@@ -503,33 +500,45 @@ controllers.controller('LoginCtrl', function($rootScope, $scope, $location, Sess
 	$scope.doChangePassword = function(){
 		var data = $scope.loginFormData;
 		// Validacion
-		var id = SessionService.currentUser.username;
-		SessionService.changePassword(id, data.old_password, data.new_password1, function(error, result){
-			if(error){
-				console.log(error);
-			} else {
-				if(result.state === 'failure'){
+		if(data.old_password && (data.new_password1 === data.new_password2)){
+			var id = SessionService.currentUser.username;
+			SessionService.changePassword(id, data.old_password, data.new_password1, function(error, result){
+				if(error){
 					$scope.loginErrorMessage = 'No se pudo cambiar su password.';
 				} else {
-					// Exito! Ver a donde redirigir bien 
-					$location.path("/");	
-				}				
-			}
-		});
+					if(result.state === 'failure'){
+						$scope.loginErrorMessage = 'No se pudo cambiar su password.';
+					} else {
+						// Exito! Ver a donde redirigir bien 
+						$location.path("/");	
+					}				
+				}
+			});
+		} else {
+			$scope.loginErrorMessage = 'Verifique los datos ingresados.';
+		}		
 	};
 
 	$scope.doRecoverPassword = function(){
-		var data = $scope.loginFormData.username;
+		var email = $scope.loginFormData.username;
 		// validacion
-		SessionService.recoverPassword(data, function(error, result){
+		SessionService.recoverPassword(email, function(error, result){
 			if(error){
 				console.log(error);
 			} else {
 				if(result.state === 'failure'){
 					$scope.loginErrorMessage = 'No se pudo recuperar su password.';
 				} else {
-					// Exito! Ver a donde redirigir bien 
-					$location.path("/");	
+					var data = {
+						to: email,
+						pass: result
+					};
+					MailService.sendPasswordRecoveryMail(data, function(error, result){
+						if(error){
+							console.log(error);
+						}
+						$location.path("/");
+					});		
 				}				
 			}
 		});

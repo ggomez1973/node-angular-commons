@@ -39,8 +39,6 @@ function($window, $location, $scope, MailService, HotelService, SessionService) 
 
 	$scope.updateHotel = function(){
 		var data = $scope.hotelFormUpdateData;
-		console.log("updateando ----------------");
-		console.log(data);
 		// Validation!! @TODO
 		HotelService.updateHotel(data, function(error, result){
 			if(error){

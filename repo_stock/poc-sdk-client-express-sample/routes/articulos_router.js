@@ -11,10 +11,9 @@ var apiKey = new stocksdk.ApiKey(
 );
 
 var stockClient = new stocksdk.Client({ apiKey: apiKey });
-
+/*
 router.get('/articulos', function(req, res) { 
-	stockClient.getApplication(process.env['STOCK_APP_HREF'], function(err, app) {
-		
+	stockClient.getApplication(process.env['STOCK_APP_HREF'], function(err, app) {	
 		app.getItems(req.query.href, function(error, result){
 			if(error){
 				console.log(error);
@@ -22,13 +21,12 @@ router.get('/articulos', function(req, res) {
 				return res.send(error);
 			}
 			return res.json(result);
-		});
-		
+		});		
 	});
 });
 
 router.get('/articulos/:id', function(req, res) {
 	
 });
-
+*/
 module.exports = router;

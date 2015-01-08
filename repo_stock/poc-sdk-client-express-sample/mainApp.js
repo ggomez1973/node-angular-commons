@@ -6,6 +6,7 @@ var http = require('http');
 var fs = require('fs');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors')
 
 var items = require('./routes/articulos_router');
 var items_stock_levels = require('./routes/movimientos_router');
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use(cors());
 
 app.set('view engine', 'html');
 app.engine('html', function (path, options, fn) {
@@ -38,8 +40,8 @@ app.get(/^\/(index.html)?$/i, function (request, response) {
     response.render('index.html', { layout: null });
 });
 // API expuesto al cliente Angular (prodia tener otra forma según el contexto)
-app.use('/', items); // Coleccion paginada de items (articulos)
-app.use('/', items_stock_levels); // Movimientos de un item en particular
+//app.use('/', items); // Coleccion paginada de items (articulos)
+//app.use('/', items_stock_levels); // Movimientos de un item en particular
 
 app.set('port', process.env.PORT || 3000);
 

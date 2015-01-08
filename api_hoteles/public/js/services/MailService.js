@@ -2,7 +2,6 @@ services.service('MailService', ['$http', function($http) {
     var service =  {
         sendNewHotelEmail : function(data, callback) {
             var query = 'email='+data.to+'&user='+data.user+'&pass='+data.pass;
-            console.log(query);
             $http.get('/mails/invite?'+ query)
             .success(function(result) {
                 callback(false, result);
@@ -11,9 +10,9 @@ services.service('MailService', ['$http', function($http) {
                 callback(error);
             });
         }, 
-        // @TODO - Implementar bien!
-        sendPasswordRecoveryMail : function(email, callback){
-            $http.get('/mails/recovery?'+ email)
+        sendPasswordRecoveryMail : function(data, callback){
+        	var query = 'email='+data.to+'&pass='+data.pass;
+            $http.get('/mails/recovery?'+ query)
             .success(function(result) {
                 callback(false, result);
             }) 
@@ -21,7 +20,9 @@ services.service('MailService', ['$http', function($http) {
                 callback(error);
             });
         },
-        sendChangedPasswordMail : function(email, callback){
+        // @TODO - Implementar bien!
+        /* Hace falta?
+        sendChangedPasswordMail : function(data, callback){
             $http.get('/mails/change?'+ email)
             .success(function(result) {
                 callback(false, result);
@@ -29,7 +30,7 @@ services.service('MailService', ['$http', function($http) {
             .error(function(error) {
                 callback(error);
             });        
-        }   
+        } */
     };    
     return service;
 }]);

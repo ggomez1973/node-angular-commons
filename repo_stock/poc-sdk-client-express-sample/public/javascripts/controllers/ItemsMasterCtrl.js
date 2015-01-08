@@ -20,7 +20,8 @@ controllers.controller('ItemsMasterCtrl', ['$scope', '$location', 'ItemsService'
 		if(error){
 			$scope.data.error = error;
 		} else {
-			$scope.data.items = result;
+			console.log(result);
+			$scope.data.items = result.items;
 		}
 	});
 }]);

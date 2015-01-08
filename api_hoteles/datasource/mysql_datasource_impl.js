@@ -53,6 +53,11 @@ mysql_datasource = (function () {
 				return callback(null, result);
 			});
 		},
+		updateUserByCriteria: function(values, options, callback){
+			db.User.update(values, options).success(function(result){
+				return callback(null, result);
+			});
+		},
 		// Incluye al administrador!
 		getAllUsers: function (fields, offset, limit, orderBy, asc, callback) {
 			var os = (offset)? offset : 0;
@@ -92,6 +97,11 @@ mysql_datasource = (function () {
 		},
 		getUser: function (id, callback) {
 			db.User.find({where: {id:id}}).success(function(item){
+				return callback(null, item);
+			});
+		},
+		getUserbyEmail: function (email, callback) {
+			db.User.find({where: {email:email}}).success(function(item){
 				return callback(null, item);
 			});
 		}

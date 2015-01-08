@@ -46,7 +46,6 @@ services.service('SessionService', ['$rootScope','$http', function($rootScope, $
                 callback(false, result);
             })
             .error(function(error) {
-                console.log(error);
                 callback(error);
             });
         },
@@ -54,11 +53,10 @@ services.service('SessionService', ['$rootScope','$http', function($rootScope, $
         	var scope = this;
             $http.post('/password/'+user, {password: old_p, new_password: new_p})
             .success(function(result) {
+            	scope.logout();
                 callback(false, result);
             })
             .error(function(error) {
-                console.log(error);
-                this.currentUser = null;
                 callback(error);
             });
         }
